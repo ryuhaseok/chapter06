@@ -34,19 +34,46 @@ public class Client {
 		InputStream is = socket.getInputStream();
 		InputStreamReader isr = new InputStreamReader(is, "UTF-8");
 		BufferedReader br = new BufferedReader(isr);
-		
+
+		//스캐너 준비
 		Scanner sc = new Scanner(System.in);
-		String str = sc.nextLine();
+		/*
+		InputStream sc = System.in;
+		InputStreamReader scIsr = new InputStreamReader(sc, "UTF-8");
+		BufferedReader scBr = new BufferedReader(scIsr);
+		*/
 		
-		//메세지 보내기
-		bw.write(str);
-		bw.newLine();
-		bw.flush();
+		while(true) {
+			//키보드 입력
+			String str = sc.nextLine();
+			//String str = scBr.readLine();
+			
+			if("/q".equals(str)) {
+				break;
+			}
+			
+			//메세지 보내기
+			bw.write(str);
+			bw.newLine();
+			bw.flush();
+			
+			//메세지 받기
+			String remsg = br.readLine();
+			System.out.println("server:[" + remsg + "]");
+		}
 		
-		//메세지 받기
-		String remsg = br.readLine();
-		System.out.println("server:[" + remsg + "]");
+		System.out.println("=========================================");
+		System.out.println("<클라이언트 종료>");
 		
+		//println 만들기
+		/*
+		OutputStream pos = System.out;
+		OutputStreamWriter posw = new OutputStreamWriter(pos, "UTF-8");
+		BufferedWriter pbw = new BufferedWriter(posw);
+		pbw.write("println 테스트");
+		pbw.newLine();
+		pbw.flush();
+		*/
 		
 		//닫기
 		sc.close();
